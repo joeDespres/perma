@@ -156,12 +156,15 @@ perma_move_to_link <- function() {
 #' @export
 perma_navigate_to_git_link_state <- function(perma_link_info) {
 
-  # if (!perma_check_for_clean_git_state()) {
-  if (F) {
+  if (!perma_check_for_clean_git_state()) {
     stop("Uncommitted work locally sync with remote for this to work")
   }
 
-  git2r::checkout(object = git2r::repository(), branch = perma_link_info$sha)
+  sha <- perma_link_info$sha
+  if (perma_get_head_sha() != sha) {
+    git2r::checkout(object = git2r::repository(), branch = sha)
+    message("Note: git checkout ", sha, "auto checkout")
+  }
 
   perma_navigate_to_link(perma_link_info)
 

@@ -9,6 +9,7 @@ perma_link <- function() {
                                   line = editor_info$lines
   )
 
+  rstudioapi::executeCommand('activateConsole')
   rstudioapi::sendToConsole(code = perma_link, execute = FALSE)
 
 }

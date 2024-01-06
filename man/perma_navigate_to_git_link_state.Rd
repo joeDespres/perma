@@ -7,7 +7,7 @@
 perma_navigate_to_git_link_state(perma_link_info)
 }
 \arguments{
-\item{link_items}{item that contains parsed perma link issues}
+\item{perma_link_info}{item that contains parsed perma link issues}
 }
 \description{
 `perma_navigate_to_git_link_state`

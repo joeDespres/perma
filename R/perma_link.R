@@ -152,7 +152,7 @@ perma_move_to_link <- function() {
   perma_navigate_to_link(perma_link_info)
 }
 #' `perma_navigate_to_git_link_state`
-#' @param link_items item that contains parsed perma link issues
+#' @param perma_link_info item that contains parsed perma link issues
 #' @export
 perma_navigate_to_git_link_state <- function(perma_link_info) {
 

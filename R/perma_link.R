@@ -163,7 +163,7 @@ perma_nav_to_git_link_state <- function(perma_link_info) {
   sha <- perma_link_info$sha
   if (perma_get_head_sha() != sha) {
     git2r::checkout(object = git2r::repository(), branch = sha)
-    message("Note: git checkout ", sha, "auto checkout")
+    message("Note Auto Executed `git checkout ", sha, "`")
   }
 
   perma_navigate_to_link(perma_link_info)
@@ -219,5 +219,6 @@ perma_navigate_to_link <- function(link_items) {
     utils::head(1)
 
   rstudioapi::navigateToFile(file = file_in_link, line = line)
+  rstudioapi::sendToConsole("")
 
 }

@@ -58,12 +58,16 @@ perma_check_files <- function(file_linked) {
                              status$staged) |>
     unlist()
 
-
-  git2r::diff(git2r::repository(), as_char = TRUE)
-
   if (file_linked %in% uncomitted_changes) { # perhaps this should be an error
     warning("Uncommitted changes affects the accuracy of the link locations")
   }
+
+  diff <- git2r::diff(git2r::repository(), as_char = TRUE)
+
+  if (diff != "") {
+    warning("Discrepancies between local and remote affects links")
+  }
+
 
 }
 #' `perma_get_document_selection`

@@ -68,7 +68,6 @@ perma_check_files <- function(file_linked) {
     warning("Discrepancies between local and remote affects links")
   }
 
-
 }
 #' `perma_get_document_selection`
 #' @param editor_location result of rstudioapi::getSourceEditorContext()

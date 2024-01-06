@@ -156,8 +156,14 @@ perma_move_to_link <- function() {
 #' @export
 perma_navigate_to_git_link_state <- function(perma_link_info) {
 
-  perma_check_for_clean_git_state()
+  # if (!perma_check_for_clean_git_state()) {
+  if (F) {
+    stop("Uncommitted work locally sync with remote for this to work")
+  }
 
+  git2r::checkout(object = git2r::repository(), branch = perma_link_info$sha)
+
+  perma_navigate_to_link(perma_link_info)
 
 }
 #' `perma_parse_and_validate_link`

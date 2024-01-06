@@ -1,37 +1,28 @@
 #' `perma_open_perma_link`
 #' @export
 perma_open_perma_link <- function() {
-  perma_link <- perma_create_link()
-  utils::browseURL(perma_link)
+  utils::browseURL(perma_get_link())
 }
 #' `perma_link_to_console`
 #' @export
 perma_link_to_console <- function() {
-  perma_link <- perma_create_link()
-  rstudioapi::executeCommand("activateConsole")
-  rstudioapi::sendToConsole(perma_link)
+  rstudioapi::sendToConsole(perma_get_link(),
+                            focus = TRUE,
+                            execute = FALSE,
+                            echo = TRUE)
 }
-#' `perma_open_link`
+#' `perma_get_link`
 #' @export
-perma_open_link <- function() {
+perma_get_link <- function() {
 
-  perma_link <- perma_create_link()
-  browseURL(perma_link)
-
-}
-
-perma_create_link <- function() {
   repo_info <- perma_get_remote_info()
   editor_info <- perma_get_editor_info()
 
-  perma_link <- perma_create_link(organization = repo_info$organization,
-                                  repository = repo_info$repository,
-                                  sha = repo_info$head_sha,
-                                  file = editor_info$file,
-                                  line = editor_info$lines
-  )
-
-  return(perma_link)
+  perma_create_link(organization = repo_info$organization,
+                    repository = repo_info$repository,
+                    sha = repo_info$head_sha,
+                    file = editor_info$file,
+                    line = editor_info$lines)
 
 }
 #' `perma_get_editor_info`
@@ -44,15 +35,14 @@ perma_get_editor_info <- function() {
     rstudioapi::getActiveProject() |>
     basename()
 
+  top_level_project_dir_pattern <-  paste0("~/", top_level_project_dir, "/")
+
   file <- stringr::str_remove(editor_location$path,
-                              pattern = paste0("~/",
-                                               top_level_project_dir,
-                                               "/"))
+                              pattern = top_level_project_dir_pattern)
 
   lines <- perma_get_document_selection(editor_location = editor_location)
 
-  list(file = file,
-       lines = lines)
+  list(file = file, lines = lines)
 
 }
 #' `perma_get_document_selection`
@@ -85,7 +75,7 @@ perma_get_head_sha <- function() {
 perma_get_org_and_repo <- function() {
   git2r::repository() |>
     git2r::remote_url() |>
-    stringr::str_remove_all("git@github.com:") |>
+    stringr::str_remove("git@github.com:") |>
     tools::file_path_sans_ext() |>
     stringr::str_split("/") |>
     unlist() |>
@@ -94,6 +84,7 @@ perma_get_org_and_repo <- function() {
 #' `perma_get_remote_info`
 #' @export
 perma_get_remote_info <- function() {
+
   perma_get_org_and_repo() |>
     c(head_sha = perma_get_head_sha()) |>
     lapply(\(.x) .x)

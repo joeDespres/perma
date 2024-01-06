@@ -37,19 +37,19 @@ perma_get_editor_info <- function() {
   file <- stringr::str_remove(editor_location$path,
                               pattern = top_level_project_dir_pattern)
 
-  perma_check_for_clean_git_state(file_linked = file)
+  perma_check_clean_git_state(file_linked = file)
 
   lines <- perma_get_document_selection(editor_location = editor_location)
 
   list(file = file, lines = lines)
 
 }
-#' `perma_check_for_clean_git_state`
+#' `perma_check_clean_git_state`
 #' @param file_linked check file linked for uncomitted work or comitted work
 #' that is not pushed. This will throw a warning if the file does not match the
 #' remote.
 #' @export
-perma_check_for_clean_git_state <- function(file_linked = "") {
+perma_check_clean_git_state <- function(file_linked = "") {
   status <- git2r::status()
 
   uncomitted_changes <- list(status$unstaged,
@@ -148,15 +148,15 @@ perma_move_to_link <- function() {
   rstudioapi::executeCommand("activateConsole")
   link <- readline(prompt = "Enter Perma Link: ")
   perma_link_info <- perma_parse_and_validate_link(link)
-  perma_navigate_to_git_link_state(perma_link_info)
+  perma_nav_to_git_link_state(perma_link_info)
   perma_navigate_to_link(perma_link_info)
 }
-#' `perma_navigate_to_git_link_state`
+#' `perma_nav_to_git_link_state`
 #' @param perma_link_info item that contains parsed perma link issues
 #' @export
-perma_navigate_to_git_link_state <- function(perma_link_info) {
+perma_nav_to_git_link_state <- function(perma_link_info) {
 
-  if (!perma_check_for_clean_git_state()) {
+  if (!perma_check_clean_git_state()) {
     stop("Uncommitted work locally sync with remote for this to work")
   }
 

@@ -1,4 +1,4 @@
-Name: test
-Description: does it work?
+Name: perma link
+Description: create perma link at cursor selection
 Binding: perma_link
 Interactive: false

@@ -1,10 +1,14 @@
-test_that("multiplication works", {
+test_that("link works", {
 
-  document_range <- rstudioapi::document_range(start = c(2, 0), end = c(5, 0))
-  rstudioapi::setSelectionRanges(document_range)
-  start_position <- document_range$start[["row"]]
-  expect_equal(start_position, 2)
-  end_position <- document_range$end[["row"]]
-  expect_equal(end_position, 5)
+
+  perma_link <- perma_create_link(organization = "joe",
+                                  repository = "permr",
+                                  sha = "main",
+                                  file = "R/perma_link.R",
+                                  line = "L23"
+  )
+
+  expect_equal(perma_link, "https://github.com/joe/permr/blob/main/R/perma_link.R#L23")
+
 
 })

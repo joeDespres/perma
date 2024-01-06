@@ -1,16 +1,15 @@
-
 perma_link <- function() {
   repo_info <- perma_get_remote_info()
   editor_info <- perma_get_editor_info()
 
   perma_link <- perma_create_link(organization = repo_info$organization,
                                   repository = repo_info$repository,
-                                  branch_name = repo_info$head_sha,
+                                  sha = repo_info$head_sha,
                                   file = editor_info$file,
                                   line = editor_info$lines
   )
 
-  perma_link
+  rstudioapi::sendToConsole(code = perma_link, execute = FALSE)
 
 }
 #' `perma_get_editor_info`
@@ -54,7 +53,8 @@ perma_get_document_selection <- function(editor_location) {
 #' `perma_get_head_sha`
 #' @export
 perma_get_head_sha <- function() {
-  git2r::last_commit()[["sha"]]
+  last_commit <- git2r::last_commit()
+  last_commit[["sha"]]
 }
 #' `perma_get_org_and_repo`
 #' @export
@@ -77,26 +77,18 @@ perma_get_remote_info <- function() {
 #' `perma_create_link`
 #' @param organization owner or the repository
 #' @param repository repo name
-#' @param blob
-#' @param branch_name this will usually be the sha of the state rather than the branch
+#' @param sha this will usually be the sha of the state rather than the branch
 #' @param file particular file name
+#' @param host hose name (DEFAULT to https://github.com)
 #' @export
 perma_create_link <- function(organization,
                               repository,
-                              blob,
-                              branch_name,
+                              sha,
                               file,
-                              line) {
+                              line,
+                              blob = "blob",
+                              host = "https://github.com") {
 
-  stringr::str_glue("https://github.com/{organization}/{repository}/blob/{branch_name}/{file}#{line}")
-
-}
-
-perma_return_link <- function(perma_link) {
-
-  rstudioapi::navigateToFile(file = ".",
-                             line = 0,
-                             column = 0,
-                             moveCursor = TRUE)
+  stringr::str_glue("{host}/{organization}/{repository}/{blob}/{sha}/{file}#{line}")
 
 }

@@ -35,6 +35,11 @@ jobs:
           )
         shell: Rscript {0}
 
+      - name: linter
+        run: |
+          stopifnot(length(lintr::lint_package()) == 0)
+        shell: Rscript {0}
+
       - name: Show testthat output
         if: always()
         run: |

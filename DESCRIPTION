@@ -13,6 +13,7 @@ Imports:
     git2r (>= 0.33.0),
     rstudioapi (>= 0.15.0),
     stringr (>= 1.5.1)
+    lintr (>= 3.1.1)
 Suggests: 
     testthat (>= 3.0.0)
 License: MIT + file LICENSE

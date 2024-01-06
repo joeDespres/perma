@@ -1,4 +1,4 @@
-Name: Send Perma Link To Console
+Name: Send Perma-Link to Console
 Description: create perma link at cursor selection
 Binding: perma_link_to_console
 Interactive: false

@@ -63,6 +63,13 @@
 <p>inspired by <a href="https://github.com/ruifm/gitlinker.nvim" class="external-link">gitlinker</a> An Rstudio Addin to create github <a href="https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/creating-a-permanent-link-to-a-code-snippet" class="external-link">perma links</a></p>
 <pre><code><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"joeDespres/permr"</span><span class="op">)</span></span></code></pre>
 <p><span class="emoji" data-emoji="white_check_mark">✅</span> Create github perma link at cursor: <code>perma_link_to_console</code> <br><span class="emoji" data-emoji="white_check_mark">✅</span> Open github at cursor or selection: <code>perma_open_perma_link</code> <br><span class="emoji" data-emoji="white_check_mark">✅</span> Move cursor to perma link: <code>perma_move_to_link</code> <br></p>
+<p>Recommended key bindings</p>
+<pre><code>~/.config/rstudio/keybindings/addins.json
+{
+    "perma::perma_link_to_console": "Ctrl+`",
+    "perma::perma_move_to_link": "Ctrl+T",
+    "perma::perma_open_perma_link": "Ctrl+G"
+}</code></pre>
 </div>
   </div>
 

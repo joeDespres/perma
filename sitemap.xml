@@ -16,7 +16,7 @@
     <loc>/reference/index.html</loc>
   </url>
   <url>
-    <loc>/reference/perma_check_files.html</loc>
+    <loc>/reference/perma_check_clean_git_state.html</loc>
   </url>
   <url>
     <loc>/reference/perma_create_link.html</loc>
@@ -43,6 +43,18 @@
     <loc>/reference/perma_link_to_console.html</loc>
   </url>
   <url>
+    <loc>/reference/perma_move_to_link.html</loc>
+  </url>
+  <url>
+    <loc>/reference/perma_nav_to_git_link_state.html</loc>
+  </url>
+  <url>
+    <loc>/reference/perma_navigate_to_link.html</loc>
+  </url>
+  <url>
     <loc>/reference/perma_open_perma_link.html</loc>
+  </url>
+  <url>
+    <loc>/reference/perma_parse_and_validate_link.html</loc>
   </url>
 </urlset>

@@ -4,7 +4,9 @@ Title: Tooling For Creating and Working With Github Perma Links
 Version: 0.1.0
 Author: Joe Despres
 Maintainer: Joe Despres <yourself@somewhere.net>
-Description: Makes perma links
+Description: Github perma links are a super protable way to reference specific
+    part of the code base. This package aims to make them easy to generate and
+    navigate to in the codebase.
 Encoding: UTF-8
 LazyData: true
 Imports: 

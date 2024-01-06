@@ -1,4 +1,4 @@
-# perma
+# permr
 1. create github perma link at cursor
 2. open github at cursor or selection
 ```r

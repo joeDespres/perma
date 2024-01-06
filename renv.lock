@@ -23,6 +23,11 @@
       "Package": "rstudioapi",
       "Version": "0.15.0",
       "Source": "Repository"
+    },
+    "stringr": {
+      "Package": "stringr",
+      "Version": "1.5.1",
+      "Source": "Repository"
     }
   }
 }

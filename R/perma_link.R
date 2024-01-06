@@ -48,8 +48,9 @@ perma_get_editor_info <- function() {
 
 }
 #' `perma_check_file_state`
-#' @param file_linked check file linked for uncomitted work or comitted work that
-#' is not pushed.
+#' @param file_linked check file linked for uncomitted work or comitted work
+#' that is not pushed. This will throw a warning if the file does not match the
+#' remote.
 #' @export
 perma_check_files <- function(file_linked) {
   status <- git2r::status()
@@ -57,8 +58,9 @@ perma_check_files <- function(file_linked) {
                              status$staged) |>
     unlist()
 
+
   if (file_linked %in% uncomitted_changes) { # perhaps this should be an error
-    warning("Note: Uncommitted changes may affects the accuracy of the link locations")
+    warning("Uncommitted changes affects the accuracy of the link locations")
   }
 
 }

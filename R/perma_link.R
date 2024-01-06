@@ -40,9 +40,25 @@ perma_get_editor_info <- function() {
   file <- stringr::str_remove(editor_location$path,
                               pattern = top_level_project_dir_pattern)
 
+  perma_check_files(file_linked = file)
+
   lines <- perma_get_document_selection(editor_location = editor_location)
 
   list(file = file, lines = lines)
+
+}
+#' `perma_check_file_state`
+#' @param file_linked check file linked for uncomitted work
+#' @export
+perma_check_files <- function(file_linked) {
+  status <- git2r::status()
+  uncomitted_changes <- list(status$unstaged,
+                             status$staged) |>
+    unlist()
+
+  if (file_linked %in% uncomitted_changes) { # perhaps this should be an error
+    warning("Note: Uncommitted changes may affects the accuracy of the link locations")
+  }
 
 }
 #' `perma_get_document_selection`

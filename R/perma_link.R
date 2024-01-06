@@ -6,10 +6,8 @@ perma_open_perma_link <- function() {
 #' `perma_link_to_console`
 #' @export
 perma_link_to_console <- function() {
-  rstudioapi::sendToConsole(perma_get_link(),
-                            focus = TRUE,
-                            execute = FALSE,
-                            echo = TRUE)
+  rstudioapi::executeCommand("activateConsole")
+  rstudioapi::sendToConsole(perma_get_link(), execute = FALSE)
 }
 #' `perma_get_link`
 #' @export
@@ -29,14 +27,13 @@ perma_get_link <- function() {
 #' @export
 perma_get_editor_info <- function() {
 
-  editor_location <- rstudioapi::getSourceEditorContext()
-
   top_level_project_dir <-
     rstudioapi::getActiveProject() |>
     basename()
 
   top_level_project_dir_pattern <-  paste0("~/", top_level_project_dir, "/")
 
+  editor_location <- rstudioapi::getSourceEditorContext()
   file <- stringr::str_remove(editor_location$path,
                               pattern = top_level_project_dir_pattern)
 

@@ -1,4 +1,20 @@
-perma_link <- function() {
+#' `perma_link_to_console`
+#' @export
+perma_link_to_console <- function() {
+  perma_link <- perma_create_link()
+  rstudioapi::executeCommand("activateConsole")
+  rstudioapi::sendToConsole(perma_link)
+}
+#' `perma_open_link`
+#' @export
+perma_open_link <- function() {
+
+  perma_link <- perma_create_link()
+  browseURL(perma_link)
+
+}
+
+perma_create_link <- function() {
   repo_info <- perma_get_remote_info()
   editor_info <- perma_get_editor_info()
 
@@ -9,8 +25,7 @@ perma_link <- function() {
                                   line = editor_info$lines
   )
 
-  rstudioapi::executeCommand('activateConsole')
-  rstudioapi::sendToConsole(code = perma_link, execute = FALSE)
+  return(perma_link)
 
 }
 #' `perma_get_editor_info`
@@ -24,7 +39,9 @@ perma_get_editor_info <- function() {
     basename()
 
   file <- stringr::str_remove(editor_location$path,
-                              pattern = paste0("~/", top_level_project_dir, "/"))
+                              pattern = paste0("~/",
+                                               top_level_project_dir,
+                                               "/"))
 
   lines <- perma_get_document_selection(editor_location = editor_location)
 
@@ -90,6 +107,8 @@ perma_create_link <- function(organization,
                               blob = "blob",
                               host = "https://github.com") {
 
-  stringr::str_glue("{host}/{organization}/{repository}/{blob}/{sha}/{file}#{line}")
+  stringr::str_glue(
+    "{host}/{organization}/{repository}/{blob}/{sha}/{file}#{line}"
+  )
 
 }

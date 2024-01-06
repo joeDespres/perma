@@ -132,3 +132,63 @@ perma_create_link <- function(organization,
   )
 
 }
+#' `perma_navigate_to_link` naviage to location
+#' @export
+perma_get_link <- function() {
+  rstudioapi::executeCommand("activateConsole")
+  link <- readline(prompt = "Enter Perma Link: ")
+  perma_link_info <- perma_parse_and_validate_link(link)
+  message(perma_link_info)
+}
+#' `perma_parse_and_validate_link`
+#' This funicton will crash if we do not have a valid github perma link
+#' @param link perma link
+#' @param host hose name (DEFAULT to https://github.com)
+#' @export
+perma_parse_and_validate_link <- function(link, host = "https://github.com/") {
+
+  if (stringr::str_detect(link, host, negate = TRUE)) {
+    stop("invalid host")
+  }
+
+  link <- stringr::str_remove(link, host)
+
+  link_items <- link |>
+    stringr::str_split("/|#") |>
+    unlist()
+
+  n_link_attrs <- length(link_items)
+
+  if (n_link_attrs < 5) {
+    stop("Insuffecient items to be a valid link")
+  }
+
+  n_folders <- n_link_attrs - 6
+  link_names <- c("organization", "repository", "blob", "sha")
+  if (n_folders > 0) {
+    link_names <- c(link_names, paste0("folder", seq(n_folders)))
+  }
+
+  link_names <- c(link_names, "file", "line")
+  names(link_items) <- link_names
+  lapply(link_items, \(.x) .x)
+}
+#' `perma_navigate_to_link_spot`
+#' @param link_items item that contains parsed perma link issues
+#' @export
+perma_navigate_to_link_spot <- function(link_items) {
+
+  folders <- link_items[stringr::str_starts(names(link_items), "folder")]
+  file_in_link <- c(as.character(folders), link_items$file) |>
+    paste0(collapse = "/")
+
+  line <- link_items$line |>
+    stringr::str_remove_all("L") |>
+    stringr::str_split("-") |>
+    unlist() |>
+    as.numeric() |>
+    utils::head(1)
+
+  rstudioapi::navigateToFile(file = file_in_link, line = line)
+
+}

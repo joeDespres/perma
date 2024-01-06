@@ -7,8 +7,9 @@
 perma_check_files(file_linked)
 }
 \arguments{
-\item{file_linked}{check file linked for uncomitted work or comitted work that
-is not pushed.}
+\item{file_linked}{check file linked for uncomitted work or comitted work
+that is not pushed. This will throw a warning if the file does not match the
+remote.}
 }
 \description{
 `perma_check_file_state`

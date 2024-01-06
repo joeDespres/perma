@@ -5,7 +5,11 @@
 \title{`perma_get_link`}
 \usage{
 perma_get_link()
+
+perma_get_link()
 }
 \description{
 `perma_get_link`
+
+`perma_navigate_to_link` naviage to location
 }

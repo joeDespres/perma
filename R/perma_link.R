@@ -94,6 +94,8 @@ perma_get_remote_info <- function() {
 #' @param repository repo name
 #' @param sha this will usually be the sha of the state rather than the branch
 #' @param file particular file name
+#' @param line which line number in the file
+#' @param blob not sure what this is or does
 #' @param host hose name (DEFAULT to https://github.com)
 #' @export
 perma_create_link <- function(organization,

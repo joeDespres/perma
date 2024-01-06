@@ -23,6 +23,10 @@ perma_create_link(
 
 \item{file}{particular file name}
 
+\item{line}{which line number in the file}
+
+\item{blob}{not sure what this is or does}
+
 \item{host}{hose name (DEFAULT to https://github.com)}
 }
 \description{

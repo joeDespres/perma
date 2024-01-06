@@ -48,7 +48,8 @@ perma_get_editor_info <- function() {
 
 }
 #' `perma_check_file_state`
-#' @param file_linked check file linked for uncomitted work
+#' @param file_linked check file linked for uncomitted work or comitted work that
+#' is not pushed.
 #' @export
 perma_check_files <- function(file_linked) {
   status <- git2r::status()

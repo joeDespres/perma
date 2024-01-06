@@ -1,3 +1,9 @@
+#' `perma_open_perma_link`
+#' @export
+perma_open_perma_link <- function() {
+  perma_link <- perma_create_link()
+  browseURL(perma_link)
+}
 #' `perma_link_to_console`
 #' @export
 perma_link_to_console <- function() {
@@ -80,7 +86,7 @@ perma_get_org_and_repo <- function() {
   git2r::repository() |>
     git2r::remote_url() |>
     stringr::str_remove_all("git@github.com:") |>
-    stringr::str_remove_all(".git") |>
+    tools::file_path_sans_ext() |>
     stringr::str_split("/") |>
     unlist() |>
     setNames(c("organization", "repository"))

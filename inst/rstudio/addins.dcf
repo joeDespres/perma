@@ -2,3 +2,8 @@ Name: Send Perma Link To Console
 Description: create perma link at cursor selection
 Binding: perma_link_to_console
 Interactive: false
+
+Name: Open Perma Link in Browser
+Description: Opens a github perma link in the browser
+Binding: perma_open_perma_link
+Interactive: false

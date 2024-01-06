@@ -2,7 +2,7 @@
 #' @export
 perma_open_perma_link <- function() {
   perma_link <- perma_create_link()
-  browseURL(perma_link)
+  utils::browseURL(perma_link)
 }
 #' `perma_link_to_console`
 #' @export
@@ -89,7 +89,7 @@ perma_get_org_and_repo <- function() {
     tools::file_path_sans_ext() |>
     stringr::str_split("/") |>
     unlist() |>
-    setNames(c("organization", "repository"))
+    stats::setNames(c("organization", "repository"))
 }
 #' `perma_get_remote_info`
 #' @export

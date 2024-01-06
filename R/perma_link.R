@@ -37,33 +37,43 @@ perma_get_editor_info <- function() {
   file <- stringr::str_remove(editor_location$path,
                               pattern = top_level_project_dir_pattern)
 
-  perma_check_files(file_linked = file)
+  perma_check_for_clean_git_state(file_linked = file)
 
   lines <- perma_get_document_selection(editor_location = editor_location)
 
   list(file = file, lines = lines)
 
 }
-#' `perma_check_file_state`
+#' `perma_check_for_clean_git_state`
 #' @param file_linked check file linked for uncomitted work or comitted work
 #' that is not pushed. This will throw a warning if the file does not match the
 #' remote.
 #' @export
-perma_check_files <- function(file_linked) {
+perma_check_for_clean_git_state <- function(file_linked = "") {
   status <- git2r::status()
+
   uncomitted_changes <- list(status$unstaged,
                              status$staged) |>
     unlist()
 
+  diff <- git2r::diff(git2r::repository(), as_char = TRUE)
+
+  clean_state <- TRUE
   if (file_linked %in% uncomitted_changes) { # perhaps this should be an error
+    clean_state <- FALSE
     warning("Uncommitted changes affects the accuracy of the link locations")
   }
 
-  diff <- git2r::diff(git2r::repository(), as_char = TRUE)
+  if (length(uncomitted_changes) > 0) {
+    clean_state <- FALSE
+  }
 
   if (diff != "") {
+    clean_state <- FALSE
     warning("Discrepancies between local and remote affects links")
   }
+
+  return(clean_state)
 
 }
 #' `perma_get_document_selection`
@@ -132,13 +142,23 @@ perma_create_link <- function(organization,
   )
 
 }
-#' `perma_navigate_to_link` naviage to location
+#' `perma_move_to_link` naviage to location
 #' @export
-perma_get_link <- function() {
+perma_move_to_link <- function() {
   rstudioapi::executeCommand("activateConsole")
   link <- readline(prompt = "Enter Perma Link: ")
   perma_link_info <- perma_parse_and_validate_link(link)
-  message(perma_link_info)
+  perma_navigate_to_git_link_state(perma_link_info)
+  perma_navigate_to_link(perma_link_info)
+}
+#' `perma_navigate_to_git_link_state`
+#' @param link_items item that contains parsed perma link issues
+#' @export
+perma_navigate_to_git_link_state <- function(perma_link_info) {
+
+  perma_check_for_clean_git_state()
+
+
 }
 #' `perma_parse_and_validate_link`
 #' This funicton will crash if we do not have a valid github perma link
@@ -176,7 +196,7 @@ perma_parse_and_validate_link <- function(link, host = "https://github.com/") {
 #' `perma_navigate_to_link_spot`
 #' @param link_items item that contains parsed perma link issues
 #' @export
-perma_navigate_to_link_spot <- function(link_items) {
+perma_navigate_to_link <- function(link_items) {
 
   folders <- link_items[stringr::str_starts(names(link_items), "folder")]
   file_in_link <- c(as.character(folders), link_items$file) |>

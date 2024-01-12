@@ -61,14 +61,20 @@
 <div class="section level1">
 <div class="page-header"><h1 id="permr">permr<a class="anchor" aria-label="anchor" href="#permr"></a>
 </h1></div>
-<p>inspired by <a href="https://github.com/ruifm/gitlinker.nvim" class="external-link">gitlinker</a> An Rstudio Addin to create github <a href="https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/creating-a-permanent-link-to-a-code-snippet" class="external-link">perma links</a></p>
+<p>An Rstudio addin to create shareable github <a href="https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/creating-a-permanent-link-to-a-code-snippet" class="external-link">perma links</a>.</p>
+<p>For instance this perma link <a href="https://github.com/joeDespres/permr/blob/9b62543054ab4e1c9e6ea60da69458c3cdcb973e/tests/testthat/test-link-creation.R#L3-L5" class="external-link uri">https://github.com/joeDespres/permr/blob/9b62543054ab4e1c9e6ea60da69458c3cdcb973e/tests/testthat/test-link-creation.R#L3-L5</a>. Will take you directly to line 3-5 of a test file. I find it to be a great way to refer a collaborator to specific code snippets in a repo.</p>
+<p>Inspired by <a href="https://github.com/ruifm/gitlinker.nvim" class="external-link">gitlinker</a></p>
 </div>
 <div class="section level1">
-<h1 id="demo">Demo<a class="anchor" aria-label="anchor" href="#demo"></a>
+<h1 id="demos">Demos<a class="anchor" aria-label="anchor" href="#demos"></a>
 </h1>
 <div class="figure">
 <img src="demo_open_in_browser.gif" alt=""><p class="caption">demo_open_in_browser</p>
 </div>
+</div>
+<div class="section level1">
+<h1 id="getting-started">Getting Started<a class="anchor" aria-label="anchor" href="#getting-started"></a>
+</h1>
 <pre><code><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"joeDespres/permr"</span><span class="op">)</span></span></code></pre>
 <p><span class="emoji" data-emoji="white_check_mark">✅</span> Create github perma link at cursor: <code>perma_link_to_console</code> <br><span class="emoji" data-emoji="white_check_mark">✅</span> Open github at cursor or selection: <code>perma_open_perma_link</code> <br><span class="emoji" data-emoji="white_check_mark">✅</span> Move cursor to perma link: <code>perma_move_to_link</code> <br></p>
 <p>Recommended key bindings</p>
@@ -78,6 +84,7 @@
     "perma::perma_move_to_link": "Ctrl+T",
     "perma::perma_open_perma_link": "Ctrl+G"
 }</code></pre>
+<p>Note this is a work in progress so this is lacking quite a bit of polish.</p>
 </div>
 
   </div>

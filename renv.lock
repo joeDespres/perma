@@ -66,14 +66,7 @@
     "crayon": {
       "Package": "crayon",
       "Version": "1.5.2",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Requirements": [
-        "grDevices",
-        "methods",
-        "utils"
-      ],
-      "Hash": "e8a1e41acf02548751f45c718d55aa6a"
+      "Source": "Repository"
     },
     "cyclocomp": {
       "Package": "cyclocomp",

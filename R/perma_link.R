@@ -13,7 +13,7 @@ perma_link_to_console <- function() {
 #' @export
 perma_get_link <- function() {
 
-  perma_assert_addin_requirements()
+  perma_assert_requirements()
   repo_info <- perma_get_remote_info()
   editor_info <- perma_get_editor_info()
 
@@ -220,9 +220,9 @@ perma_navigate_to_link <- function(link_items) {
   rstudioapi::sendToConsole("")
 
 }
-#' `perma_assert_addin_requirements`
+#' `perma_assert_requirements`
 #' @export
-perma_assert_addin_requirements <- function() {
+perma_assert_requirements <- function() {
 
   if (is.null(git2r::discover_repository())) {
     stop("Your project must be in a git repository ",

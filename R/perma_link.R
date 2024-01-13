@@ -6,6 +6,9 @@ perma_open_perma_link <- function() {
 #' `perma_link_to_console`
 #' @export
 perma_link_to_console <- function() {
+
+  perma_is_clean_git_state()
+  git2r::discover_repository()
   rstudioapi::executeCommand("activateConsole")
   rstudioapi::sendToConsole(perma_get_link(), execute = FALSE)
 }
@@ -13,6 +16,7 @@ perma_link_to_console <- function() {
 #' @export
 perma_get_link <- function() {
 
+  perma_assert_addin_requirements()
   repo_info <- perma_get_remote_info()
   editor_info <- perma_get_editor_info()
 
@@ -37,19 +41,19 @@ perma_get_editor_info <- function() {
   file <- stringr::str_remove(editor_location$path,
                               pattern = top_level_project_dir_pattern)
 
-  perma_check_clean_git_state(file_linked = file)
+  perma_is_clean_git_state(file_linked = file)
 
   lines <- perma_get_document_selection(editor_location = editor_location)
 
   list(file = file, lines = lines)
 
 }
-#' `perma_check_clean_git_state`
+#' `perma_is_clean_git_state`
 #' @param file_linked check file linked for uncomitted work or comitted work
 #' that is not pushed. This will throw a warning if the file does not match the
 #' remote.
 #' @export
-perma_check_clean_git_state <- function(file_linked = "") {
+perma_is_clean_git_state <- function(file_linked = "") {
   status <- git2r::status()
 
   uncomitted_changes <- list(status$unstaged,
@@ -156,7 +160,7 @@ perma_move_to_link <- function() {
 #' @export
 perma_nav_to_git_link_state <- function(perma_link_info) {
 
-  if (!perma_check_clean_git_state()) {
+  if (!perma_is_clean_git_state()) {
     stop("Uncommitted work locally sync with remote for this to work")
   }
 
@@ -220,5 +224,22 @@ perma_navigate_to_link <- function(link_items) {
 
   rstudioapi::navigateToFile(file = file_in_link, line = line)
   rstudioapi::sendToConsole("")
+
+}
+#' `perma_assert_addin_requirements`
+#' @export
+perma_assert_addin_requirements <- function() {
+
+  if (is.null(git2r::discover_repository())) {
+    stop("Your project must be in a git repository ",
+         "your current dir is currently` ",
+         getwd(), "`")
+  }
+
+  if (!rstudioapi::isAvailable()) {
+    stop("You must be using RStudio for permr to work")
+  }
+
+  perma_is_clean_git_state()
 
 }

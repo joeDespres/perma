@@ -1,8 +1,8 @@
 Package: perma
 Type: Package
 Title: Tooling For Creating and Working With Github Perma Links
-Version: 0.2.0
-Date: 2024-01-06
+Version: 0.3.0
+Date: 2024-01-12
 Author: Joe Despres
 Maintainer: Joe Despres <yourself@somewhere.net>
 Description: Github perma links are a super protable way to reference specific

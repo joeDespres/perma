@@ -1,16 +1,16 @@
-# permr
+# perma
 
 An Rstudio addin to create shareable github [perma links](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/creating-a-permanent-link-to-a-code-snippet).
 
 For instance this perma link:
-`https://github.com/joeDespres/permr/blob/9b62543054ab4e1c9e6ea60da69458c3cdcb973e/tests/testthat/test-link-creation.R#L3-L5`. Will take you directly to line 3-5 of a test file. I find it to be a great way to refer a collaborator to specific code snippets in a repo.
+`https://github.com/joeDespres/perma/blob/9b62543054ab4e1c9e6ea60da69458c3cdcb973e/tests/testthat/test-link-creation.R#L3-L5`. Will take you directly to line 3-5 of a test file. I find it to be a great way to refer a collaborator to specific code snippets in a repo.
 
 Inspired by [gitlinker](https://github.com/ruifm/gitlinker.nvim)
 
 # Getting Started
 
 ```
-devtools::install_github("joeDespres/permr")
+devtools::install_github("joeDespres/perma")
 ```
 
 # Demos

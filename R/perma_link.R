@@ -231,7 +231,7 @@ perma_assert_addin_requirements <- function() {
   }
 
   if (!rstudioapi::isAvailable()) {
-    stop("You must be using RStudio for permr to work")
+    stop("You must be using RStudio for perma to work")
   }
 
 }

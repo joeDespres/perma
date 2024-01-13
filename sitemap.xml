@@ -16,7 +16,7 @@
     <loc>/reference/index.html</loc>
   </url>
   <url>
-    <loc>/reference/perma_check_clean_git_state.html</loc>
+    <loc>/reference/perma_assert_addin_requirements.html</loc>
   </url>
   <url>
     <loc>/reference/perma_create_link.html</loc>
@@ -38,6 +38,9 @@
   </url>
   <url>
     <loc>/reference/perma_get_remote_info.html</loc>
+  </url>
+  <url>
+    <loc>/reference/perma_is_clean_git_state.html</loc>
   </url>
   <url>
     <loc>/reference/perma_link_to_console.html</loc>

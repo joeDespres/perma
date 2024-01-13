@@ -6,9 +6,6 @@ perma_open_perma_link <- function() {
 #' `perma_link_to_console`
 #' @export
 perma_link_to_console <- function() {
-
-  perma_is_clean_git_state()
-  git2r::discover_repository()
   rstudioapi::executeCommand("activateConsole")
   rstudioapi::sendToConsole(perma_get_link(), execute = FALSE)
 }
@@ -54,30 +51,25 @@ perma_get_editor_info <- function() {
 #' remote.
 #' @export
 perma_is_clean_git_state <- function(file_linked = "") {
+
   status <- git2r::status()
 
   uncomitted_changes <- list(status$unstaged,
                              status$staged) |>
     unlist()
 
-  diff <- git2r::diff(git2r::repository(), as_char = TRUE)
-
-  clean_state <- TRUE
   if (file_linked %in% uncomitted_changes) { # perhaps this should be an error
-    clean_state <- FALSE
-    warning("Uncommitted changes affects the accuracy of the link locations")
+    cat(crayon::red("Uncommitted changes affects the accuracy of the link locations"))
+    return(FALSE)
   }
 
-  if (length(uncomitted_changes) > 0) {
-    clean_state <- FALSE
-  }
-
+  diff <- git2r::diff(git2r::repository(), as_char = TRUE)
   if (diff != "") {
-    clean_state <- FALSE
-    warning("Discrepancies between local and remote affects links")
+    cat(crayon::red("Discrepancies between local and remote affects links"))
+    return(FALSE)
   }
 
-  return(clean_state)
+  return(TRUE)
 
 }
 #' `perma_get_document_selection`
@@ -239,7 +231,5 @@ perma_assert_addin_requirements <- function() {
   if (!rstudioapi::isAvailable()) {
     stop("You must be using RStudio for permr to work")
   }
-
-  perma_is_clean_git_state()
 
 }

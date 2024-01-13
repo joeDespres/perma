@@ -38,6 +38,7 @@ perma_get_editor_info <- function() {
   file <- stringr::str_remove(editor_location$path,
                               pattern = top_level_project_dir_pattern)
 
+
   perma_is_clean_git_state(file_linked = file)
 
   lines <- perma_get_document_selection(editor_location = editor_location)
@@ -54,18 +55,19 @@ perma_is_clean_git_state <- function(file_linked = "") {
 
   status <- git2r::status()
 
-  uncomitted_changes <- list(status$unstaged,
-                             status$staged) |>
-    unlist()
+  uncomitted_changes <- c(status$unstaged, status$staged)
 
   if (file_linked %in% uncomitted_changes) { # perhaps this should be an error
-    cat(crayon::red("Uncommitted changes affects the accuracy of the link locations"))
+    cat(crayon::red("Uncommitted changes in the file:",
+                    file_linked,
+                    "affects the accuracy of the link paths.\n"))
     return(FALSE)
   }
 
   diff <- git2r::diff(git2r::repository(), as_char = TRUE)
   if (diff != "") {
-    cat(crayon::red("Discrepancies between local and remote affects links"))
+    cat(crayon::red("Discrepancies between local and remote affects ",
+                    "the accuracy of the links"))
     return(FALSE)
   }
 
